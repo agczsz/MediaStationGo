@@ -344,6 +344,9 @@ func (s *ScannerService) IngestPath(ctx context.Context, libraryID, path string)
 	res.Updated += changed
 	if res.Added+res.Updated > 0 {
 		s.invalidateMediaCache(ctx)
+		if s.autoScrapeEnabled(ctx) {
+			s.startAutoScrape(ctx, libraryID)
+		}
 	}
 	return res.Added+res.Updated > 0, nil
 }

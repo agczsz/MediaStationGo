@@ -68,6 +68,8 @@ type ScannerService struct {
 
 	imageProxy *ImageProxy
 
+	autoScrapeMu            sync.Mutex
+	autoScrapeActive        map[string]struct{}
 	cloudScanMu             sync.Mutex
 	cloudScans              map[string]*cloudScanEntry
 	cloudSlots              chan struct{}
